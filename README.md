@@ -1,45 +1,58 @@
-# Engineering Design Note: Governed AI Assessment Pipeline
+# Eklavya: Governed Multi-Agent AI Content Pipeline 🛡️🎓
 
-## Overview
-This system implements a deterministic, multi-agent pipeline for the generation of educational content. Unlike standard "chat-and-hope" LLM implementations, this architecture treats content generation as a governed manufacturing process with explicit quality gating, bounded retries, and comprehensive audit trails.
+Eklavya is a production-grade, auditable AI content generation platform. It transforms the standard LLM "chat" interface into a rigorous, governed manufacturing process for educational materials.
 
-## 🤖 Agent Roles & Responsibilities
+## 🚀 Repository Details
+**Repository**: [Aryan6238/Eklavya-EduAgent-advanced](https://github.com/Aryan6238/Eklavya-EduAgent-advanced)
 
-| Agent | Responsibility | Implementation Note |
-| :--- | :--- | :--- |
-| **Generator** | Content Production | Primary source of truth. Uses strict JSON schemas to ensure output can be parsed by downstream systems. |
-| **Reviewer** | Quality Gating | Quantitative scoring agent. Evaluates content on 4 dimensions (Age, Correctness, Clarity, Coverage) using a 1-5 scale. |
-| **Refiner** | Targeted Correction | Delta agent. Takes Reviewer feedback and previous drafts to produce a corrected version, avoiding the "start from scratch" drift. |
-| **Tagger** | Classification | Post-approval agent. Assumes content is safe/correct and applies Bloom's Taxonomy and educational metadata. |
+## 🏗️ Architecture: The Governed Pipeline
+The system moves beyond simple prompts by implementing a deterministic `Generate -> Review -> Refine -> Tag` lifecycle managed by four specialized agents:
 
-## ✅ Pass/Fail Criteria
-The pipeline enforces a strict **"High Quality or Nothing"** policy:
-- **Approval Threshold**: Content must score **>= 4** across *all* four reviewer dimensions. If even one score is 3 or below, the draft is rejected and sent for refinement.
-- **Structural Integrity**: Any response failing Pydantic schema validation triggers exactly **one** automatic recovery attempt before the run is marked as an error.
+1.  **Generator Agent**: Produces initial drafts (Grade 1-12) using strict Pydantic schemas.
+2.  **Reviewer Agent**: Performs quantitative quality audits (1-5 grading) on age-appropriateness, accuracy, and coverage.
+3.  **Refiner Agent**: Applies targeted corrections based on Reviewer feedback to avoid content drift.
+4.  **Tagger Agent**: Classifies approved content with pedagogical metadata (Bloom's Taxonomy, Difficulty).
 
-## 🧠 Orchestration Decisions
+## 🛠️ Tech Stack
+- **Backend**: FastAPI (Async Python)
+- **Governance**: Pydantic v2 (Strict Schema Validation)
+- **Intelligence**: Google Gemini 2.0 / Ollama (Local Llama 3.2)
+- **Persistence**: SQLite (Immutable RunArtifact Audit Trails)
+- **Frontend**: Vanilla JS + CSS (Nocturne Dark Design System)
 
-### 1. Sequential Determinism
-The pipeline follows a strict linear sequence: `Generator` -> `Reviewer` -> `[Refiner -> Reviewer] x 2` -> `Tagger`. This ensures that the `Tagger` never operates on unverified content and that the audit trail is perfectly chronological.
+## ⚙️ Local Setup
 
-### 2. Bounded Retries (Infinite Loop Prevention)
-To prevent "Refinement Drift" or cost/latency spikes, the orchestrator enforces hard limits:
-- **Max Refinement Cycles**: 2. If content remains below threshold after 2 refinements, the run is terminated with a `rejected` status.
-- **Bounded Content Length**: Strict instruction sets prevent LLMs from generating overly verbose text that complicates review.
+1. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. First-Class Run Artifacts
-Every execution produces a `RunArtifact` JSON. This is not just a log; it is a restorable state object that captures inputs, intermediate drafts, specific scores, and final decisions.
+2. **Configure Environment**:
+   Create a `.env` file from the provided `.env.example`:
+   ```env
+   GOOGLE_API_KEY=your_key_here
+   LLM_PROVIDER=gemini # or 'ollama'
+   OLLAMA_MODEL=llama3.2:latest
+   ```
 
-## ⚖️ Engineering Trade-offs
+3. **Run the Dashboard**:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   Visit: `http://localhost:8000`
 
-### High Quality vs. Latency
-The system significantly prioritizes quality and accuracy over speed. A single successful "Approved" run may involve 4-6 LLM calls (Initial Gen, 1-2 Reviews, 1-2 Refinements, Tagging). In a production literacy environment, a 30-second wait for a validated lesson is superior to a 2-second wait for a potentially hallucinated one.
+## 🧪 Verification & Testing
+The project includes a mandatory governance test suite. Run it to verify the safety gates:
+```bash
+pytest test_orchestrator.py
+```
+This suite verifies:
+- ✅ Schema validation recovery.
+- ✅ Successful content refinement loops.
+- ✅ Rejection of low-quality content after max retries.
 
-### Strict Schema vs. AI Creativity
-By enforcing Pydantic models at every step, we restrict the LLM's "creative freedom." While this occasionally requires retries if the model misses a field, it ensures 100% compatibility with the database and UI, which is critical for system stability.
-
-### Stateless Agents vs. Stateful Orchestrator
-The Agents themselves are stateless functions. All state (draft versions, review history) is managed by the `Orchestrator` and passed explicitly. This simplifies testing and allows for easier agent replacement or model upgrades (e.g., swapping Gemini 2.0 for 1.5) without refactoring logic.
+## 🛡️ Governance & Auditability
+Every run generates a **RunArtifact** — a full forensic record containing every draft attempt, every score, and every piece of feedback. This ensures the system is not a "black box" and results are 100% reproducible and auditable.
 
 ---
-*Document Version: 1.1 - Part 2 Governance Compliance*
+*Developed for AI Assessment Part 2: Governed, Auditable Pipeline Compliance.*
