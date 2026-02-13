@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eklavya | AI Assessment Governance</title>
+    <!-- Phosphor Icons for that premium SaaS feel -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar: History & Audit Ledger -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="ph-fill ph-shield-checkered" style="font-size: 2rem; color: var(--primary)"></i>
+                <h1>Eklavya</h1>
+            </div>
+
+            <div class="history-title">Audit Ledger</div>
+            <div id="historyList">
+                <!-- History Items Injected via JS -->
+            </div>
+
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-light)">
+                <div class="status-badge">PIPELINE ACTIVE</div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-stage">
+            <header class="pipeline-header">
+                <div>
+                    <h2 style="font-family: var(--font-heading); margin: 0; font-size: 1.5rem">Assessment Pipeline</h2>
+                    <p style="color: var(--text-secondary); margin: 4px 0 0 0; font-size: 0.9rem">Governed Multi-Agent
+                        Content Generation</p>
+                </div>
+            </header>
+
+            <!-- Interaction Area -->
+            <div class="pannel-controls">
+                <div class="input-container">
+                    <input type="text" id="topicInput" placeholder="Specify Topic (e.g. Quantum Entanglement)">
+                </div>
+                <div style="width: 160px">
+                    <select id="gradeInput">
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5" selected>Grade 5</option>
+                        <option value="6">Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                    </select>
+                </div>
+                <button id="runBtn" class="btn-primary">
+                    <i class="ph ph-play-circle" style="vertical-align: middle; margin-right: 8px"></i>
+                    Execute
+                </button>
+            </div>
+
+            <!-- Pipeline Visualizer -->
+            <div id="visualizer" class="visualizer">
+                <!-- Cards will be injected here with staggered animations -->
+                <div style="text-align: center; padding: 100px 0; color: var(--text-dim)">
+                    <i class="ph ph-terminal-window" style="font-size: 3rem; margin-bottom: 20px; display: block"></i>
+                    Enter a topic to initiate the governed lifecycle.
+                </div>
+            </div>
+
+            <!-- Final Validated Output -->
+            <div id="final-result" class="hidden">
+                <div class="artifact-wrapper">
+                    <div class="artifact-title">
+                        <span class="badge"
+                            style="background: rgba(52, 211, 153, 0.1); color: var(--success); margin-bottom: 16px">VALIDATED
+                            OUTPUT ARTIFACT</span>
+                        <h2 id="artifactTopic">---</h2>
+                        <p id="artifactMeta">---</p>
+                    </div>
+
+                    <div id="finalContentArea" class="content-display"></div>
+
+                    <div id="tagArea" style="margin-top: 32px"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js?v=3.0"></script>
+</body>
+
+</html>
