@@ -54,12 +54,10 @@ The **Nocturne Suite** design system provides a clinical, high-contrast interfac
 ### 1. The Audit Ledger & Pipeline Stage
 The sidebar keeps a persistent record of all historical runs, while the stage visualizes the live agent lifecycle.
 
-![Dashboard Overview](file:///c:/Users/Aryan/Downloads/google_antigravity/eklavya/Screenshots/1.1.png)
 
 ### 2. High-Accuracy Validation
 Successfully validated artifacts include curated explanations, teacher notes (objective/misconceptions), and high-rigor assessment items.
 
-![Validated Output](file:///c:/Users/Aryan/Downloads/google_antigravity/eklavya/Screenshots/2.1.png)
 
 ---
 
