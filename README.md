@@ -4,10 +4,6 @@
 
 ---
 
-## 🚀 Repository Details
-**Repository**: [Aryan6238/Eklavya-EduAgent-advanced](https://github.com/Aryan6238/Eklavya-EduAgent-advanced)
-
----
 
 ## 🏗️ System Architecture
 
