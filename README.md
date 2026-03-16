@@ -1,10 +1,17 @@
+---
+title: Eklavya Ai
+emoji: 🌍
+colorFrom: red
+colorTo: pink
+sdk: docker
+pinned: false
+---
+
 # Eklavya: Governed Multi-Agent AI Content Pipeline 🛡️🎓
 
 **Eklavya** is a high-integrity, production-grade educational content engine. It moves beyond simple "prompt engineering" by implementing a deterministic, multi-agent manufacturing process with explicit quality gating, bounded retries, and comprehensive forensic audit trails.
 
 ---
-
-
 
 ## 🏗️ System Architecture
 
@@ -55,42 +62,43 @@ The **Nocturne Suite** design system provides a clinical, high-contrast interfac
 ### 1. The Audit Ledger & Pipeline Stage
 The sidebar keeps a persistent record of all historical runs, while the stage visualizes the live agent lifecycle.
 
-
 ### 2. High-Accuracy Validation
 Successfully validated artifacts include curated explanations, teacher notes (objective/misconceptions), and high-rigor assessment items.
 
+---
+
+## 🚀 Repository Details
+**Repository**: [Aryan6238/Eklavya-EduAgent-advanced](https://github.com/Aryan6238/Eklavya-EduAgent-advanced)
+
+## ⚙️ Local Setup
+1. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. **Configure Environment**:
+   Create a `.env` file from the provided `.env.example`:
+   ```env
+   GOOGLE_API_KEY=your_key_here
+   LLM_PROVIDER=gemini # or 'ollama'
+   OLLAMA_MODEL=llama3.2:latest
+   ```
+3. **Run the Dashboard**:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   Visit: `http://localhost:8000`
 
 ---
 
-## ⚙️ Local Autonomy (Ollama Support)
-
-For enterprise privacy or cost-free high-volume generation, Eklavya supports local execution via **Ollama**.
-
-1.  **Install Ollama**: Pull `llama3.2:latest`.
-2.  **Switch Provider**: Update your `.env`:
-    ```env
-    LLM_PROVIDER=ollama
-    OLLAMA_MODEL=llama3.2:latest
-    ```
-3.  **Independence**: The entire pipeline (Generate, Review, Refine, Tag) will run locally on your hardware without any cloud API dependencies.
-
----
-
-## 🛠️ Technology Stack
-- **Languages**: Python 3.11+, JavaScript (ES6+)
-- **Backend**: FastAPI (Asynchronous Orchestration)
-- **Validation**: Pydantic v2 (Strict Schema Enforcement)
-- **Database**: SQLite (Audit Log Storage)
-- **Design**: Vanilla CSS 3 (Glassmorphism, Staggered Animations)
-
----
-
-## 🧪 Verification
+## 🧪 Verification & Testing
 Execute the mandatory governance test suite:
 ```bash
 pytest test_orchestrator.py
 ```
-This suite verifies the deterministic handling of **Schema Failures**, **Refinement Success**, and **Max-Retry Rejections**.
+This suite verifies:
+- ✅ Schema validation recovery.
+- ✅ Successful content refinement loops.
+- ✅ Rejection of low-quality content after max retries.
 
 ---
 *Developed for AI Assessment Part 2: Governed, Auditable Pipeline Compliance. Final Certification: 100% Compliant.*

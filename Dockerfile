@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . .
 
+# Create data directory for sqlite
+RUN mkdir -p /app/data && chmod 777 /app/data
+
 # Expose port 7860 (Hugging Face default)
 EXPOSE 7860
 
