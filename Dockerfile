@@ -1,18 +1,25 @@
 # Use official Python image
 FROM python:3.11-slim
 
-# Set working directory
-WORKDIR /app
+# Create a non-root user
+RUN useradd -m -u 1000 user
+USER user
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Set working directory
+WORKDIR $HOME/app
+
+# Copy requirements and install
+# Note: We use --no-cache-dir to keep the image small
+COPY --chown=user requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Copy project files
-COPY . .
+COPY --chown=user . .
 
-# Create data directory for sqlite
-RUN mkdir -p /app/data && chmod 777 /app/data
+# Ensure data directory is writable (though on free tier it's ephemeral)
+RUN mkdir -p $HOME/app/data
 
 # Expose port 7860 (Hugging Face default)
 EXPOSE 7860

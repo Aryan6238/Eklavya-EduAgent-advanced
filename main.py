@@ -28,7 +28,13 @@ orchestrator = Orchestrator()
 def startup_event():
     init_db()
 
+# --- Health Check ---
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
 # --- API Endpoints ---
+
 
 @app.post("/generate", response_model=RunArtifact)
 async def generate_assessment(request: InputRequest):
