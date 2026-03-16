@@ -5,6 +5,7 @@
 ---
 
 
+
 ## 🏗️ System Architecture
 
 The pipeline follows a strict, sequential orchestration pattern designed to maximize pedagogical accuracy while maintaining absolute state control.
